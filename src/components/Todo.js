@@ -3,6 +3,7 @@ import '../assets/scss/todo.scss'
 //importing components
 import Form from './Form'
 import TodoList from './TodoList'
+import ToggleTheme from './ToggleTheme'
 
 export default function Todo() {
 
@@ -11,6 +12,7 @@ export default function Todo() {
   const [todos, setTodos] = useState([])
   const [status, setStatus] = useState('all')
   const [sortedTodos, setSortedTodos] = useState([])
+  const [isDarkTheme, setIsDarkTheme] = useState(false)
 
   //use effect
   useEffect(() => {
@@ -36,6 +38,10 @@ export default function Todo() {
     }
   }
 
+  const handleChangeTheme = () => {
+    setIsDarkTheme(!isDarkTheme)
+  }
+
   //save to Local
   const saveLocalTodos = () => {
     localStorage.setItem('todos', JSON.stringify(todos))
@@ -51,17 +57,28 @@ export default function Todo() {
   }
 
   return (
-    <div className='todo-component'>
-      <header>Todo List</header>
-      <Form
-        setInputText={setInputText}
-        setTodos={setTodos}
-        todos={todos}
-        inputText={inputText}
-        setStatus={setStatus}
-        status={status}
+    <div className={`${isDarkTheme ? 'dark' : ''} todo-component`}>
+      <ToggleTheme
+        checked={isDarkTheme}
+        handleChange={handleChangeTheme}
       />
-      <TodoList sortedTodos={sortedTodos} setTodos={setTodos} todos={todos} />
+      <div className='todo-component_body'>
+        <header>Todo List</header>
+        <Form
+          setInputText={setInputText}
+          setTodos={setTodos}
+          todos={todos}
+          inputText={inputText}
+          setStatus={setStatus}
+          status={status}
+        />
+        <TodoList
+          sortedTodos={sortedTodos}
+          setTodos={setTodos}
+          todos={todos}
+        />
+      </div>
+
     </div>
   )
 }

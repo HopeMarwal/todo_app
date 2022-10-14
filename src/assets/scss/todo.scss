@@ -1,25 +1,52 @@
+/* light theme */
 $main-color: #3a427c;
+$bg-body-light: linear-gradient(120deg, #a6ff8e 0%, #85c9fd 100%);
+$bg-btn-light: rgba(255, 255, 255, 0.7);
+$btn-clr-light: #fff;
+$btn-v-bg-light: rgb(11, 212, 162);
+$btn-v-bg-light-active: rgb(18, 230, 177);
+$btn-x-bg-light: #ddaf49;
+$btn-x-bg-light-active: #ffcd62;
 
+/*dark theme */
+$main-color-dark: rgb(235, 235, 235);
+$bg-body-dark: linear-gradient(120deg, #267013 0%, #193951 100%);
+$bg-btn-dark: rgba(255, 255, 255, 0.318);
+$btn-clr-dark: #3a427c;
+$btn-v-bg-dark: rgb(85, 254, 212);
+$btn-v-bg-dark-active: #3a427c;
+$btn-x-bg-light: #ddaf49;
+$btn-x-bg-light-active: #ffcd62;
 
 .todo-component {
-  background-image: linear-gradient(120deg, #a6ff8e 0%, #85c9fd 100%);
+  background-image: $bg-body-light;
   color: white;
   min-height: 100vh;
+
+  &_body {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    max-width: 500px;
+    margin: auto;
+    padding-top: 100px;
+  }
 
   header {
     font-size: 2rem;
     font-weight: 600;
+    color: $main-color;
   }
 
   header,
   form {
-    max-width: 500px;
-    margin: auto;
-    min-height: 20vh;
+    width: 100%;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     align-items: center;
+    margin-bottom: 20px;
   }
 
   form {
@@ -30,6 +57,7 @@ $main-color: #3a427c;
       display: flex;
       justify-content: center;
       align-items: center;
+      margin-bottom: 15px;
     }
 
     input,
@@ -37,7 +65,7 @@ $main-color: #3a427c;
       padding: 0.5rem;
       font-size: 2rem;
       border: none;
-      background: rgba(255, 255, 255, 0.7);
+      background: $bg-btn-light;
     }
 
     input {
@@ -57,7 +85,7 @@ $main-color: #3a427c;
 
       &:hover {
         background: $main-color;
-        color: white;
+        color: $btn-clr-light;
       }
     }
 
@@ -97,7 +125,7 @@ $main-color: #3a427c;
       box-shadow: none;
       border: 0 !important;
       background-image: none;
-      background: rgba(255, 255, 255, 0.7);
+      background: $bg-btn-light;
       color: $main-color;
       font-family: "Poppins", sans-serif;
       cursor: pointer;
@@ -107,11 +135,10 @@ $main-color: #3a427c;
   }
 
   .todo-container {
-    max-width: 500px;
-    margin: 0 auto;
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
   }
 
   .todo-list {
@@ -127,14 +154,14 @@ $main-color: #3a427c;
   }
 
   .todo {
-    background: white;
+    background: $bg-btn-light;
     margin-bottom: 0.4em;
     font-size: 1.5rem;
     color: black;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    transition: all 1s ease;
+    transition: all 0.5s ease;
     height: 50.5px;
     width: 100%;
     overflow: hidden;
@@ -163,7 +190,7 @@ $main-color: #3a427c;
   .trash-btn,
   .complete-btn {
     background: $main-color;
-    color: white;
+    color: $btn-clr-light;
     border: none;
     padding: 1rem;
     cursor: pointer;
@@ -172,11 +199,19 @@ $main-color: #3a427c;
 
   .complete-btn {
     transition: all 0.1s linear;
-    background: rgb(11, 212, 162);
+    background: $btn-v-bg-light;
     width: 50px;
 
+    &.completed {
+      background-color: $btn-x-bg-light;
+
+      &:active {
+        background-color: $btn-x-bg-light-active;
+      }
+    }
+
     &:active {
-      background: rgb(18, 230, 177);
+      background: $btn-v-bg-light-active;
       transform: scale(1.1);
     }
   }
@@ -189,12 +224,6 @@ $main-color: #3a427c;
   .fa-check {
     pointer-events: none;
   }
-
-  .fall {
-    transform: translateY(10rem) rotateZ(20deg);
-    opacity: 0;
-  }
-
 
   /*CUSTOM SELECTOR */
   select {
@@ -212,4 +241,136 @@ $main-color: #3a427c;
     width: 12rem;
   }
 
+}
+
+/* toggle theme style */
+.toggle-theme {
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+
+  &_header {
+    color: $main-color;
+    font-weight: 700;
+    margin-right: 5px;
+  }
+
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+  }
+
+  .switch input {
+    display: none;
+  }
+
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: $bg-body-dark;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+
+  input:checked+.slider {
+    background: $bg-body-light;
+  }
+
+  input:focus+.slider {
+    box-shadow: 0 0 1px #fff;
+  }
+
+  input:checked+.slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+
+  .slider.round:before {
+    border-radius: 50%;
+  }
+}
+
+/* dark style */
+.todo-component {
+  &.dark {
+    background-image: $bg-body-dark;
+    color: $main-color-dark;
+
+    .toggle-theme_header {
+      color: $main-color-dark;
+    }
+
+    header {
+      color: $main-color-dark;
+    }
+
+    form {
+
+      button,
+      input {
+        background-color: $bg-btn-dark;
+        color: $main-color-dark;
+      }
+
+      button {
+        &:hover {
+          color: $btn-clr-dark;
+        }
+      }
+
+      .select {
+        option {
+          color: $main-color-dark;
+        }
+
+        &::after {
+          background: $main-color-dark;
+          color: $btn-clr-dark;
+        }
+      }
+
+      select {
+        background: $bg-btn-dark;
+        color: $main-color-dark;
+        font-weight: 600;
+      }
+    }
+
+    .todo {
+      background: $bg-btn-dark;
+      color: $main-color-dark;
+    }
+
+    .trash-btn {
+      background: $main-color-dark;
+      color: $btn-clr-dark;
+    }
+
+  }
 }

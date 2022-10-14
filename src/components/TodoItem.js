@@ -7,7 +7,7 @@ export default function TodoItem(props) {
     setIsDeleted(true)
     setTimeout(() => {
       props.setTodos(props.todos.filter((el) => el.id !== props.todoItem.id))
-    }, 1000);
+    }, 500);
 
   }
 
@@ -27,7 +27,7 @@ export default function TodoItem(props) {
     <div className={`todo ${isDeleted ? 'deleted' : ''}`}>
       <li className={`todo-item ${props.todoItem.completed ? "completed" : ''}`}>{props.todoItem.text}</li>
 
-      <button onClick={handleComplete} className='complete-btn'>
+      <button onClick={handleComplete} className={`${props.todoItem.completed ? 'completed' : ''} complete-btn`}>
         {
           !props.todoItem.completed
             ? (<i className='fas fa-check'></i>)
